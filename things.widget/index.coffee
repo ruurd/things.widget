@@ -1,17 +1,12 @@
 refreshFrequency: 60000
 
-homeDir = process.env['HOME']
-sqliteDb = homeDir + '/Library/Containers/com.culturedcode.things/Data/Library/Application\ Support/Cultured\ Code/Things/ThingsLibrary.db'
-
-todaySql = 'select ZTITLE from ZTHING where ZTRASHED=0 AND ZSTATUS=0 AND ZFOCUSLEVEL IS NULL AND ZSCHEDULER =1 AND ZSTART==1 AND ZTYPE=0 ORDER BY ZTITLE ASC'
-
-command: "sqlite3 '#{sqliteDb}' '#{todaySql}' | awk 'BEGIN {print \"\"} {print substr($0,0)\"<br />\"} /^[*]/ {print \"<blockquote><li>\"substr($0,2)\"</li></blockquote>\"} END {print \"\"}'"
+command: "osascript things.widget/thingstoday.scpt | awk 'BEGIN {print \"\"} {print substr($0,0)\"<br />\"} /^[*]/ {print \"<blockquote><li>\"substr($0,2)\"</li></blockquote>\"} END {print \"\"}'"
 
 style: """
   border-radius: 6px
   padding: 0px 20px
-  top: 1%
-  left: 0px
+  top: 45%
+  left: 10px
   color: #fff
   font-family: Caviar Dreams
   font-weight:bold
